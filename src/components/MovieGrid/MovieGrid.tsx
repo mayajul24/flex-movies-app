@@ -7,10 +7,9 @@ interface MovieGridProps {
   movies: Movie[];
   focusedIndex: number;
   isGridActive: boolean;
-  onMovieSelect: (movieId: number) => void;
 }
 
-export const MovieGrid: React.FC<MovieGridProps> = ({ movies, focusedIndex, isGridActive, onMovieSelect }) => {
+export const MovieGrid: React.FC<MovieGridProps> = ({ movies, focusedIndex, isGridActive }) => {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -34,7 +33,6 @@ export const MovieGrid: React.FC<MovieGridProps> = ({ movies, focusedIndex, isGr
           key={movie.id}
           movie={movie}
           isFocused={isGridActive && index === focusedIndex}
-          onClick={() => onMovieSelect(movie.id)}
         />
       ))}
     </GridContainer>

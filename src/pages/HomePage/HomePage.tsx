@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store';
 import { GRID_COLUMNS } from '../../utils/constants';
 import { fetchPopularRequest, fetchNowPlayingRequest } from '../../store/movies/moviesActions';
@@ -20,7 +19,6 @@ import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 
 export const HomePage: React.FC = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const activeCategory = useSelector((s: RootState) => s.movies.activeCategory);
   const categoryMovies = useSelector(selectCurrentMovieList);
@@ -47,12 +45,6 @@ export const HomePage: React.FC = () => {
   const error = searchIsActive ? searchError : categoryError;
   const focusedIndex = gridPosition.row * GRID_COLUMNS + gridPosition.col;
 
-  const handleMovieSelect = useCallback(
-    (movieId: number) => {
-      navigate(`/movie/${movieId}`);
-    },
-    [navigate],
-  );
 
   const handlePrevPage = useCallback(() => {
     if (pagination.page > 1) {
@@ -84,7 +76,6 @@ export const HomePage: React.FC = () => {
             movies={displayedMovies}
             focusedIndex={focusedIndex}
             isGridActive={activeZone === 'grid'}
-            onMovieSelect={handleMovieSelect}
           />
           {activeCategory !== 'favorites' && !searchIsActive && (
             <Pagination

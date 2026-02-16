@@ -6,16 +6,15 @@ import { CardContainer, PosterImage, CardInfo, Title, Rating } from './MovieCard
 interface MovieCardProps {
   movie: Movie;
   isFocused: boolean;
-  onClick: () => void;
 }
 
-export const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie, isFocused, onClick }) => {
+export const MovieCard: React.FC<MovieCardProps> = React.memo(({ movie, isFocused }) => {
   const posterUrl = movie.posterPath
     ? `${TMDB_IMAGE_BASE_URL}${POSTER_SIZE}${movie.posterPath}`
     : undefined;
 
   return (
-    <CardContainer $isFocused={isFocused} onClick={onClick} data-movie-card>
+    <CardContainer $isFocused={isFocused}  data-movie-card>
       {posterUrl ? (
         <PosterImage src={posterUrl} alt={movie.title} loading="lazy" />
       ) : (
