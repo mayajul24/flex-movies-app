@@ -10,7 +10,7 @@ import {
   selectCurrentLoading,
   selectCurrentError,
 } from '../../store/movies/moviesSelectors';
-import { selectSearchIsActive, selectSearchResults, selectSearchLoading, selectSearchError } from '../../store/search/searchSelectors';
+import { selectSearchIsActive, selectSearchResults, selectSearchLoading, selectSearchError, selectSearchQuery } from '../../store/search/searchSelectors';
 import { Layout } from '../../components/Layout/Layout';
 import { MovieGrid } from '../../components/MovieGrid/MovieGrid';
 import { Pagination } from '../../components/Pagination/Pagination';
@@ -27,6 +27,7 @@ export const HomePage: React.FC = () => {
   const categoryError = useSelector(selectCurrentError);
 
   const searchIsActive = useSelector(selectSearchIsActive);
+  const searchQuery = useSelector(selectSearchQuery);
   const searchResults = useSelector(selectSearchResults);
   const searchLoading = useSelector(selectSearchLoading);
   const searchError = useSelector(selectSearchError);
@@ -40,9 +41,18 @@ export const HomePage: React.FC = () => {
     dispatch(loadFavorites());
   }, [dispatch]);
 
-  const displayedMovies = searchIsActive ? searchResults : categoryMovies;
-  const loading = searchIsActive ? searchLoading : categoryLoading;
-  const error = searchIsActive ? searchError : categoryError;
+  const displayedMovies = (() => {
+    if (!searchIsActive) return categoryMovies;
+    if (activeCategory === 'favorites') {
+      const query = searchQuery.toLowerCase().trim();
+      return query.length > 0
+        ? categoryMovies.filter((m) => m.title.toLowerCase().includes(query))
+        : categoryMovies;
+    }
+    return searchResults;
+  })();
+  const loading = searchIsActive && activeCategory !== 'favorites' ? searchLoading : categoryLoading;
+  const error = searchIsActive && activeCategory !== 'favorites' ? searchError : categoryError;
   const focusedIndex = gridPosition.row * GRID_COLUMNS + gridPosition.col;
 
 
