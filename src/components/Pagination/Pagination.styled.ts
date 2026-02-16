@@ -6,6 +6,7 @@ export const PaginationContainer = styled.div`
   align-items: center;
   gap: 16px;
   padding: 12px 24px;
+  flex-shrink: 0;
 `;
 
 export const PageButton = styled.button<{ $isFocused: boolean; $disabled?: boolean }>`
