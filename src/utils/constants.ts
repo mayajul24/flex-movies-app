@@ -1,0 +1,12 @@
+export const GRID_COLUMNS = 4;
+export const DEBOUNCE_MS = 500;
+export const MIN_SEARCH_CHARS = 2;
+export const RATE_LIMIT_MAX_REQUESTS = 5;
+export const RATE_LIMIT_WINDOW_MS = 10_000;
+export const CATEGORY_FOCUS_DELAY_MS = 2000;
+export const API_TIMEOUT_MS = 8000;
+export const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/';
+export const POSTER_SIZE = 'w342';
+export const BACKDROP_SIZE = 'w1280';
+export const POSTER_DETAIL_SIZE = 'w500';
+export const FAVORITES_STORAGE_KEY = 'movies_app_favorites';
